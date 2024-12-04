@@ -16,10 +16,8 @@ function App() {
   const { width, height } = useWindowDimensions();
   const mainAreaWidth = Math.min(width - 30, 1200);
   const offsetLeft = (width - mainAreaWidth) / 2;
-  const [useRastermap, setUseRastermap] = useState(true);
-  const [showUnitsTables, setShowUnitsTables] = useState(true);
   const [okayToViewSmallScreen, setOkayToViewSmallScreen] = useState(false);
-  const divHandler = useDivHandler({ mainAreaWidth, useRastermap, showUnitsTables, setUseRastermap, setShowUnitsTables });
+  const divHandler = useDivHandler({ mainAreaWidth });
   if (width < 800 && !okayToViewSmallScreen) {
     return (
       <SmallScreenMessage
@@ -71,10 +69,6 @@ const SmallScreenMessage: FunctionComponent<{ onOkay: () => void }> = ({ onOkay 
 
 interface DivHandlerConfig {
   mainAreaWidth: number;
-  useRastermap: boolean;
-  showUnitsTables: boolean;
-  setUseRastermap: (val: boolean) => void;
-  setShowUnitsTables: (val: boolean) => void;
 }
 
 interface DivHandlerProps {
@@ -86,7 +80,7 @@ interface DivHandlerProps {
 type DivHandlerComponent = (props: DivHandlerProps) => JSX.Element;
 
 const useDivHandler = (config: DivHandlerConfig): DivHandlerComponent => {
-  const { mainAreaWidth, useRastermap, showUnitsTables, setUseRastermap, setShowUnitsTables } = config;
+  const { mainAreaWidth } = config;
 
   return ({ className, props, children }: DivHandlerProps) => {
     switch (className) {
